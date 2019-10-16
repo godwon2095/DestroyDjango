@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>
+    게시글 상세 페이지 입니다.
+    </h1>
+
+    <h2>
+        제목 : {{ post.title }}
+    </h2>
+
+    <p>
+        내용 : {{ post.content }}
+    </p>
+</div>
+{% endblock %}

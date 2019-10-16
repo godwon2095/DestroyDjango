@@ -24,7 +24,14 @@ def create(request):
         if form.is_valid():
             form.save()
         return redirect('main')
-        
+    
+    
+def show(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    context = {
+        'post': post
+    }
+    return render(request, 'posts/show.html', context)
         
         
         
