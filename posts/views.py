@@ -32,6 +32,25 @@ def show(request, post_id):
         'post': post
     }
     return render(request, 'posts/show.html', context)
+
+
+def edit(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    context = {
+        'post': post,
+        'form': PostForm(instance=post)
+    }
+    return render(request, 'posts/edit.html', context)
+
+
+def update(request, post_id):
+    if request.method == "POST":
+        post = Post.objects.get(pk=post_id)
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect('posts:show', post_id)
+    
         
         
         

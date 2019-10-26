@@ -13,5 +13,6 @@
     <p>
         내용 : {{ post.content }}
     </p>
+    <a href="{% url 'posts:edit' post.pk %}" class="btn btn-outline-primary">수정하기</a>
 </div>
 {% endblock %}
