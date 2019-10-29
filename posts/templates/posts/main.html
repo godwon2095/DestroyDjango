@@ -14,7 +14,7 @@
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.content }}</p>
                 <p>{{ post.created_at }}</p>
-                <a href="{% url 'posts:show' post.id %}" class="btn btn-primary">Go somewhere</a>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">보러가기</a>
               </div>
             </div>
         </div>

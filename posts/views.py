@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
 import pdb
@@ -23,11 +23,11 @@ def create(request):
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('main')
+        return redirect(form.instance)
     
     
 def show(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     context = {
         'post': post
     }
@@ -35,7 +35,7 @@ def show(request, post_id):
 
 
 def edit(request, post_id):
-    post = Post.objects.get(pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     context = {
         'post': post,
         'form': PostForm(instance=post)
@@ -45,11 +45,18 @@ def edit(request, post_id):
 
 def update(request, post_id):
     if request.method == "POST":
-        post = Post.objects.get(pk=post_id)
+        post = get_object_or_404(Post, pk=post_id)
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-        return redirect('posts:show', post_id)
+        return redirect(post)
+    
+    
+def delete(request, post_id):
+    if request.method == "POST":
+        post = get_object_or_404(Post, pk=post_id)
+        post.delete()
+        return redirect('main')
     
         
         
