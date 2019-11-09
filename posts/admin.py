@@ -4,7 +4,8 @@ from .models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 
+        'id',
+        '_type',
         'title', 
         'view_count', 
         'created_at', 

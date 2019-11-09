@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
+from django.views.decorators.http import require_POST
 import pdb
 
 
@@ -18,16 +19,19 @@ def new(request):
     return render(request, 'posts/new.html', context)
 
 
+@require_POST
 def create(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect(form.instance)
+    form = PostForm(request.POST)
+    if form.is_valid():
+        form.save()
+    return redirect(form.instance)
     
     
 def show(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    default_view_count = post.view_count
+    post.view_count = default_view_count + 1
+    post.save()
     context = {
         'post': post
     }
@@ -43,21 +47,21 @@ def edit(request, post_id):
     return render(request, 'posts/edit.html', context)
 
 
+@require_POST
 def update(request, post_id):
-    if request.method == "POST":
-        post = get_object_or_404(Post, pk=post_id)
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-        return redirect(post)
+    post = get_object_or_404(Post, pk=post_id)
+    form = PostForm(request.POST, instance=post)
+    if form.is_valid():
+        form.save()
+    return redirect(post)
     
-    
+
+@require_POST
 def delete(request, post_id):
-    if request.method == "POST":
-        post = get_object_or_404(Post, pk=post_id)
-        post.delete()
-        return redirect('main')
-    
+    post = get_object_or_404(Post, pk=post_id)
+    post.delete()
+    return redirect('main')
+
         
         
         
