@@ -18,7 +18,7 @@ class Post(models.Model):
                                     verbose_name="조회수")
     _type = models.PositiveSmallIntegerField(choices=POST_TYPES,
                                             verbose_name="게시글타입")
-    image = models.ImageField(upload_to="posts/img", blank=True)
+    image = models.ImageField(upload_to="posts/img", default="posts/default/default_post_img.jpg")
     
     created_at = models.DateTimeField(auto_now_add=True,
                                      verbose_name="등록시간")

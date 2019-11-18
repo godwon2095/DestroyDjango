@@ -10,6 +10,9 @@
         {% for post in posts %}
         <div class="col-md-4 col-12">
             <div class="card" style="width: 18rem; margin-top: 20px;">
+              {% if post.image %}
+                  <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+              {% endif %}
               <div class="card-body">
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.content }}</p>

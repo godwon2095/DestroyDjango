@@ -21,7 +21,7 @@ def new(request):
 
 @require_POST
 def create(request):
-    form = PostForm(request.POST)
+    form = PostForm(request.POST, request.FILES or None)
     if form.is_valid():
         form.save()
     return redirect(form.instance)
@@ -50,7 +50,7 @@ def edit(request, post_id):
 @require_POST
 def update(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    form = PostForm(request.POST, instance=post)
+    form = PostForm(request.POST, request.FILES or None, instance=post)
     if form.is_valid():
         form.save()
     return redirect(post)

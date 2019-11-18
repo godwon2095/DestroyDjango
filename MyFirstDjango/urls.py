@@ -25,4 +25,6 @@ urlpatterns = [
     path('', main, name="main"),
     path('lovely/', include('lovely.urls')),
     path('posts/', include('posts.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
